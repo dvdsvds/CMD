@@ -3,8 +3,9 @@
 
 class Command {
 public:
-	void showHelp();
+	void showHelp(int num);
 	void checkCurrentDir();
+	void outputFiles();
 };
 
 #endif 
