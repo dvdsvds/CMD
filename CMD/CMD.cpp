@@ -1,10 +1,8 @@
 /* CMD */
-
 #include <iostream>
 #include <string>
 #include <filesystem>
 #include <vector>
-
 #include "Command.h"
 
 using namespace std;
@@ -15,13 +13,11 @@ int main() {
 	Command c;
 	cout << "[File Manage Program]\n\n";
 	cout << "If you want to view help, type 'sh' command and view it" << endl;
-	// start console
-	while(1) {
 
-		// start type command
-		while (1) {
+	while(1) { 
+		while (1) { 
 			string typeCommand;
-			cout << ">";
+			cout << "~>";
 			getline(cin, typeCommand);
 
 			string setence = typeCommand;
@@ -34,10 +30,9 @@ int main() {
 				tokens.push_back(token);
 			}
 
-			// Basic command
-			
+			// Basic commands
 			if(!tokens.empty()) {
-				if (tokens[0] == "sh" && tokens.size() == 2) { // sh(show help) : show help
+				if (tokens[0] == "sh" && tokens.size() == 2) { 
 					if (tokens[1] == "0") {
 						c.showHelp(0);
 					}
@@ -48,30 +43,36 @@ int main() {
 						c.showHelp(2);
 					}
 					else {
-						cout << "'" << typeCommand << "' is unknown command. Please try again." << endl;
+						cerr << "'" << typeCommand << "' is unknown command. Please try again." << endl;
 					}
 				}
-				else if (tokens[0] == "clr") { // clear : clear console window
+				else if (tokens[0] == "cw") { 
 					cout << "\033[2J\033[H";
 				}
 				else if (tokens[0] == "exit") {
 					exit(0);
 				}
 
-				// The command that is about a file and directory
-				else if (tokens[0] == "cc") { // cc(check current dirctory) : show current directory 
+				// Commands that is about a file and directory
+				else if (tokens[0] == "cc") {  
 					c.checkCurrentDir();
 				}
-				else if (tokens[0] == "of") { // of(output files) : files output of current directory
+				else if (tokens[0] == "of") { 
 					c.outputFiles();
 				}
-				else if (tokens[0] == "cd") { // cd(change directory) : change directory
-					
+				else if (tokens[0] == "cpd") {  
+					c.changeToParentDirectory();
+				}
+				else if (tokens[0] == "csd") {
+					if (tokens.size() >= 2) {
+						c.changeToSubDirectory(tokens[1]);
+					}
+					else {
+						cerr << "Please type argument" << endl;
+					}
 				}
 			}
 		}
 	}
-
-	
 	return 0;
 }
